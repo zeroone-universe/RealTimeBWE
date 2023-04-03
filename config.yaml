@@ -1,0 +1,80 @@
+
+#-----------------------------------------------
+#Config that does not have impact on performance
+#-----------------------------------------------
+
+
+random_seed: 0b011011
+
+#-----------------------------------------------
+#1. Dataset
+#-----------------------------------------------
+
+dataset:
+
+#directory that have every dataset in it.
+  data_dir: "/media/youngwon/Neo/NeoChoi/Research/CodecEnhancement/CSE+BWE/Dataset/CSE+BWE_dataset"
+  # data_dir: "/media/zeroone"
+
+  nb_train: "downsampled/train"
+  # nb_train: "downsampled/test"
+  nb_val: "downsampled/test"
+
+  wb_train: "target/train"
+  # wb_train: "target/test"
+  wb_val: "target/test"
+
+#So for this case, wideband test dataset should be located at "/media/zeroone/target/test"
+
+  batch_size: 16
+  seg_len: 2
+  
+  num_workers: 16
+ 
+#-----------------------------------------------
+#2. Model
+#-----------------------------------------------
+
+#No information
+
+#-----------------------------------------------
+#3. Loss
+#-----------------------------------------------
+
+#No information
+
+#-----------------------------------------------
+#4. Optimizer (ADAM)
+#-----------------------------------------------
+
+optim:
+  learning_rate: 0.0001
+
+  B1: 0.5
+  B2: 0.9
+
+
+#-----------------------------------------------
+#Training
+#-----------------------------------------------
+
+train:
+  normalize: False
+
+  epoch_save_start: 0
+  val_epoch: 50
+  
+#Path of output of validation. 
+  output_dir_path: "/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/output"
+  logger_path: "/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/logger"
+
+  max_epochs: 300
+  # max_epochs: 10
+
+
+#-----------------------------------------------
+#Predict
+#-----------------------------------------------
+predict:
+  nb_pred_path: "/media/youngwon/Neo/NeoChoi/Projects/test/pred_nb" #The path to the directory containing the WAV files
+  pred_output_path: "/media/youngwon/Neo/NeoChoi/Projects/test/pred_output" #The path to the directory where the output files will be saved.
