@@ -2,3 +2,5 @@ logger
 output
 __pycache__
 *.ipynb
+logger_*
+output_*

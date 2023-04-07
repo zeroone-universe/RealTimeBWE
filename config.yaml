@@ -13,12 +13,14 @@ random_seed: 0b011011
 dataset:
 
 #directory that have every dataset in it.
-  data_dir: "/media/youngwon/Neo/NeoChoi/Research/CodecEnhancement/CSE+BWE/Dataset/CSE+BWE_dataset"
+  data_dir: "/disk1/zeroone"
   # data_dir: "/media/zeroone"
 
-  nb_train: "downsampled/train"
+
+
+  nb_train: "legacy/NB/codec_opus9/train"
   # nb_train: "downsampled/test"
-  nb_val: "downsampled/test"
+  nb_val: "legacy/NB/codec_opus9/test"
 
   wb_train: "target/train"
   # wb_train: "target/test"
@@ -65,11 +67,10 @@ train:
   val_epoch: 50
   
 #Path of output of validation. 
-  output_dir_path: "/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/output"
-  logger_path: "/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/logger"
+  output_dir_path: "/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/output_opus9"
+  logger_path: "/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/logger_opus9"
 
-  max_epochs: 300
-  # max_epochs: 10
+  max_epochs: 350
 
 
 #-----------------------------------------------

@@ -68,14 +68,19 @@ class RTBWETrain(pl.LightningModule):
 
         #optimize discriminator
         
+        self.toggle_optimizer(optimizer_d)
+        
         loss_d =self.discriminator.loss_D(wav_bwe, wav_wb)
         
         optimizer_d.zero_grad()
         self.manual_backward(loss_d)
         optimizer_d.step()
 
+        self.untoggle_optimizer(optimizer_d)
         
         #optimize generator
+
+        self.toggle_optimizer(optimizer_g)
 
         loss_g = self.discriminator.loss_G(wav_bwe, wav_wb)
         
@@ -83,6 +88,7 @@ class RTBWETrain(pl.LightningModule):
         self.manual_backward(loss_g)
         optimizer_g.step()
         
+        self.untoggle_optimizer(optimizer_g)
         
         self.log("train_loss_d", loss_d, prog_bar = True, batch_size = self.config['dataset']['batch_size'])
         self.log("train_loss_g", loss_g, prog_bar = True, batch_size = self.config['dataset']['batch_size'])
