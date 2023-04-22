@@ -26,7 +26,6 @@ class RTBWETrain(pl.LightningModule):
 
         self.generator = SEANet(min_dim = 8, causality = True, skip_outmost = True)
         self.output_dir_path = config['train']['output_dir_path']
-        self.normalize = config['train']['normalize']
 
         self.epoch_save_start = config['train']['epoch_save_start']
         self.val_epoch = config['train']['val_epoch']
@@ -57,14 +56,8 @@ class RTBWETrain(pl.LightningModule):
         
         wav_nb, wav_wb, _ = batch
         
-        if self.normalize:
-            wav_std = wav_nb.std(dim=-1, keepdim=True) + 1e-3
-            wav_nb = wav_nb/wav_std        
-        else:
-            wav_std = 1
             
         wav_bwe = self.forward(wav_nb)
-        wav_bwe = wav_bwe * wav_std
 
         #optimize discriminator
         
@@ -98,16 +91,9 @@ class RTBWETrain(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         
         wav_nb, wav_wb, filename = batch
-
-        if self.normalize:
-            wav_std = wav_nb.std(dim=-1, keepdim=True) + 1e-3
-            wav_nb = wav_nb/wav_std        
-        else:
-            wav_std = 1
     
         wav_bwe = self.forward(wav_nb)
         
-        wav_bwe = wav_bwe * wav_std
         
         loss_d = self.discriminator.loss_D(wav_bwe, wav_wb)
         loss_g = self.discriminator.loss_G(wav_bwe, wav_wb)
@@ -124,57 +110,20 @@ class RTBWETrain(pl.LightningModule):
         val_pesq_wb = pesq(fs = 16000, ref = wav_wb, deg = wav_bwe, mode = "wb")
         val_pesq_nb = pesq(fs = 16000, ref = wav_wb, deg = wav_bwe, mode = "nb")
         
-        self.log_dict({"val_loss/val_loss_d": loss_d, "val_loss/val_loss_g": loss_g}, batch_size = self.config['dataset']['batch_size'])
-        self.log('val_pesq_wb', val_pesq_wb)
-        self.log('val_pesq_nb', val_pesq_nb)
-
-
+        self.log_dict({"val_loss/val_loss_d": loss_d, "val_loss/val_loss_g": loss_g}, batch_size = 1)
+        self.log('val_pesq_wb', val_pesq_wb, batch_size = 1)
+        self.log('val_pesq_nb', val_pesq_nb, batch_size = 1)
 
 
     def test_step(self, batch, batch_idx):
         pass
-        
-        # wav_nb, wav_wb, filename = batch
 
-        # if self.normalize:
-        #     wav_std = wav_nb.std(dim=-1, keepdim=True) + 1e-3
-        #     wav_nb = wav_nb/wav_std        
-        # else:
-        #     wav_std = 1
-
-        # wav_bwe = self.forward(wav_nb)
-
-        # wav_bwe = wav_bwe * wav_std
-        
-        # wav_bwe_cpu = wav_bwe.squeeze(0).cpu()
-        # test_dir_path = f"{self.output_dir_path}/epoch_test"
-        # check_dir_exist(test_dir_path)
-        # ta.save(os.path.join(test_dir_path, f"{filename[0]}.wav"), wav_bwe_cpu, 16000)
-
-        # wav_wb = wav_wb.squeeze().cpu().numpy()
-        # wav_bwe = wav_bwe.squeeze().cpu().numpy()
-
-        # test_pesq_wb = pesq(fs = 16000, ref = wav_wb, deg = wav_bwe, mode = "wb")
-        # test_pesq_nb = pesq(fs = 8000, ref = wav_wb, deg = wav_bwe, mode = "nb")
-
-        # self.log('test_pesq_wb', test_pesq_wb)
-        # self.log('test_pesq_nb', test_pesq_nb)
-
-    
 
 
     def predict_step(self, batch, batch_idx):
         wav_nb, _, filename = batch
-        
-        if self.normalize:
-            wav_std = wav_nb.std(dim=-1, keepdim=True) + 1e-3
-            wav_nb = wav_nb/wav_std        
-        else:
-            wav_std = 1
 
         wav_bwe = self.forward(wav_nb)
-
-        wav_bwe = wav_bwe * wav_std
         
         wav_bwe_cpu = wav_bwe.squeeze(0).cpu()
         test_dir_path = self.path_dir_bwe_pred

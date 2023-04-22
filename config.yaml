@@ -13,17 +13,14 @@ random_seed: 0b011011
 dataset:
 
 #directory that have every dataset in it.
-  data_dir: "/disk1/zeroone"
-  # data_dir: "/media/zeroone"
+  # data_dir: "/disk1/zeroone"
+  data_dir: "/media/youngwon/Neo/NeoChoi/Research/CodecEnhancement/CSE+BWE/Dataset/CSE+BWE_dataset"
 
 
-
-  nb_train: "legacy/NB/codec_opus9/train"
-  # nb_train: "downsampled/test"
-  nb_val: "legacy/NB/codec_opus9/test"
+  nb_train: "downsampled/train"
+  nb_val: "downsampled/test"
 
   wb_train: "target/train"
-  # wb_train: "target/test"
   wb_val: "target/test"
 
 #So for this case, wideband test dataset should be located at "/media/zeroone/target/test"
@@ -61,14 +58,12 @@ optim:
 #-----------------------------------------------
 
 train:
-  normalize: False
-
   epoch_save_start: 0
   val_epoch: 50
   
 #Path of output of validation. 
-  output_dir_path: "/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/output_opus9"
-  logger_path: "/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/logger_opus9"
+  output_dir_path: "./output"
+  logger_path: "./logger"
 
   max_epochs: 350
 

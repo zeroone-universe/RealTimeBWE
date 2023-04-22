@@ -32,11 +32,9 @@ This repository also support directory-level inference, where the inference is p
 
 ```python inference.py --mode dir --path_ckpt <path of checkpoint file>```
 
-We will upload a pretrained-checkpoint file of the model trained on the TIMIT and VCTK datasets soon.
-
 ## Note
 - This implementation does not include streaming convolution and uses the conventional causal convolution instead. Although this deviates from the contributions of the original paper, I am focusing on verifying the bandwidth extension performance of this model.
-- The original paper conducted training for 1 million steps, whereas this implementation trained for 300 epochs for personal research convenience. The number of epochs can be adjusted arbitrarily. 
+- The original paper conducted training for 1 million steps, whereas this implementation trained for 350 epochs for personal research convenience. The number of epochs can be adjusted arbitrarily. 
 - Demo samples will be uploaded soon.
 - Feel free to provide issues!
 
