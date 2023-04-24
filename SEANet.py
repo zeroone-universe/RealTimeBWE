@@ -99,11 +99,6 @@ class SEANet(nn.Module):
         if self.skip_outmost:
             x = x[..., :y[0].shape[-1]] + y[0][..., :x.shape[-1]]
         
-        # if self.out_channels != self.in_channels:
-        #     x = x[:,:y[0].shape[1]]
-        #     y[0] = y[0][:, :x.shape[1]]
-        # x = x + y[0][..., :x.shape[-1]]
-        
         return x
     def get_name(self):
         return self.name

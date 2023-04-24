@@ -40,7 +40,7 @@ if __name__ == "__main__":
     parser.add_argument("--path_in", type = str)
     args = parser.parse_args()
     
-    config = yaml.load(open("/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/config.yaml", 'r'), Loader=yaml.FullLoader)
+    config = yaml.load(open("./config.yaml", 'r'), Loader=yaml.FullLoader)
     
     inference(config, args)
 

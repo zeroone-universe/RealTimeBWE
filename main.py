@@ -22,25 +22,10 @@ def main(config):
     
     tb_logger = pl_loggers.TensorBoardLogger(config['train']['logger_path'], name=f"RTBWE_logs")
     
-    #-----textlogger-----
-    # textlogger = logging.getLogger("TEXT")
-    # textlogger.setLevel(logging.INFO)
-
-    # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    # file_handler = logging.FileHandler(f"{LOGGER_PATH}/modelconfig.log")
-    # file_handler.setFormatter(formatter)
-    # textlogger.addHandler(file_handler)
-
-    # textlogger.info(train_codecpp.get_config())
-
-    # progress_bar = ProgressBar()
-    # progress_bar.log_to_file = True
-
     checkpoint_callback = ModelCheckpoint(
     filename = "{epoch}-{val_pesq_wb:.2f}-{val_pesq_nb:.2f}",
     save_top_k = -1,
     every_n_epochs = config['train']['val_epoch'])
-
 
     tb_logger.log_hyperparams(config)
 
@@ -55,6 +40,6 @@ def main(config):
     trainer.save_checkpoint(os.path.join(config['train']['output_dir_path'],'final_model.ckpt'))
     
 if __name__ == "__main__":
-    config = yaml.load(open("/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/config.yaml", 'r'), Loader=yaml.FullLoader)
+    config = yaml.load(open("./config.yaml", 'r'), Loader=yaml.FullLoader)
     
     main(config)
