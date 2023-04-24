@@ -16,8 +16,7 @@ def main(config):
     pl.seed_everything(config['random_seed'], workers=True)
     rtbwe_datamodule = RTBWEDataModule(config)
     rtbwe_train = RTBWETrain(config)
-    # rtbwe_train = RTBWETrain.load_from_checkpoint("/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/epoch=99-val_pesq_wb=1.68-val_pesq_nb=2.39.ckpt", config = config)
-
+    
     check_dir_exist(config['train']['output_dir_path'])
     check_dir_exist(config['train']['logger_path'])
     
