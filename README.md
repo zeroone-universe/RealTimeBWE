@@ -28,14 +28,13 @@ The trained model will be saved as ckpt file in 'logger' directory. You can then
 
 ```python inference.py --mode wav --path_ckpt <path of checkpoint file> --path_in <path of wav file>```
 
-This repository also support directory-level inference, where the inference is performed on a directory consisting of wav files. Before running directory-level inference, it is necessary to modify the 'Predict' section of the config.yaml file. You can use the following example to perform directory-level inference,
+This repository also support directory-level inference, where the inference is performed on a directory consisting of wav files. Before running directory-level inference, it is necessary to modify the 'predict' section of the config.yaml file. You can use the following example to perform directory-level inference,
 
 ```python inference.py --mode dir --path_ckpt <path of checkpoint file>```
 
 ## Note
 - This implementation does not include streaming convolution and uses the conventional causal convolution instead. Although this deviates from the contributions of the original paper, I am focusing on verifying the bandwidth extension performance of this model.
 - The original paper conducted training for 1 million steps, whereas this implementation trained for 350 epochs for personal research convenience. The number of epochs can be adjusted arbitrarily. 
-- Demo samples will be uploaded soon.
 - Feel free to provide issues!
 
 ## Citation

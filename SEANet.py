@@ -281,15 +281,6 @@ class Pad(nn.Module):
         return F.pad(x, pad=self.pad)    
     
     
-
-    
-def test_model(model):
-    x = torch.rand(2, 1, 32000)  # (batch, length)
-
-    y , _= model(1000*x)
-    print(y.shape)  # (batch, nspk, length)
-
-
 if __name__ == "__main__":
 
     model = SEANet(in_channels=1, out_channels=1, min_dim = 32, causal=True, weight_norm = True, skip_connection = True, skip_outmost = True)

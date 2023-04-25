@@ -9,7 +9,7 @@ import pytorch_lightning as pl
 
 
 from utils import *
-import yaml
+
 
 class RTBWEDataset(Dataset): 
   #데이터셋의 전처리를 해주는 부분
@@ -136,15 +136,3 @@ class RTBWEDataModule(pl.LightningDataModule):
     
     def val_dataloader(self):
         return DataLoader(self.val_dataset, batch_size = 1, num_workers = self.num_workers)
-
-
-if __name__=="__main__":
-    config = yaml.load(open("/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/config.yaml", "r"), Loader=yaml.FullLoader)
-    ce_datamodule = RTBWEDataModule(config = config)
-    ce_datamodule.setup()
-    
-    val_dataloader = ce_datamodule.val_dataloader()
-    a = next(iter(val_dataloader))
-    print(f"dist: f{a[0].shape}")
-    print(f"orig: f{a[1].shape}")
-    print(a[2])

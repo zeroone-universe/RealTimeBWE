@@ -36,8 +36,8 @@ def inference(config, args):
 if __name__ == "__main__":  
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", type = str, help = "wav/dir", default = "wav")
-    parser.add_argument("--path_ckpt", type = str, default = "/media/youngwon/Neo/NeoChoi/Projects/RealTimeBWE/logger/RTBWE_logs/version_0/checkpoints/epoch=249-val_pesq_wb=3.56-val_pesq_nb=4.47.ckpt" )
-    parser.add_argument("--path_in", type = str)
+    parser.add_argument("--path_ckpt", type = str)
+    parser.add_argument("--path_in", type = str, help = "")
     args = parser.parse_args()
     
     config = yaml.load(open("./config.yaml", 'r'), Loader=yaml.FullLoader)
