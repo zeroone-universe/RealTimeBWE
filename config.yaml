@@ -13,8 +13,7 @@ random_seed: 0b011011
 dataset:
 
 #directory that have every dataset in it.
-  # data_dir: "/disk1/zeroone"
-  data_dir: "/media/youngwon/Neo/NeoChoi/Research/CodecEnhancement/CSE+BWE/Dataset/CSE+BWE_dataset"
+  data_dir: "/media/zeroone"
 
 
   nb_train: "downsampled/train"
