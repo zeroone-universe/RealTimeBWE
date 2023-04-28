@@ -26,7 +26,7 @@ def inference(config, args):
             path_dir_wb = config["predict"]["nb_pred_path"],
             seg_len = 2,
             mode = "pred"
-        )    
+        )
         trainer = pl.Trainer(devices=1, accelerator="gpu", logger = False)
         
         trainer.predict(rtbwe_train, pred_dataset)
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", type = str, help = "wav/dir", default = "wav")
     parser.add_argument("--path_ckpt", type = str)
-    parser.add_argument("--path_in", type = str, help = "")
+    parser.add_argument("--path_in", type = str, help = "path of wav file or directory")
     args = parser.parse_args()
     
     config = yaml.load(open("./config.yaml", 'r'), Loader=yaml.FullLoader)
