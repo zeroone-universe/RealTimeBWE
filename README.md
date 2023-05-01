@@ -21,7 +21,7 @@ To automatically install these libraries, run the following command:
 
 To run the code on your own machine, follow these steps:
 
-1. Open the 'config.yaml' file and modify the file paths (and hyperparameters as needed).
+1. Open the 'config.yaml' file and modify the file paths, training configurations, and hyperparameters as needed.
 2. Run the 'main.py' file to start training the model.
 
 The trained model will be saved as ckpt file in 'logger' directory. You can then use the trained model to perform real-time speech frequency bandwidth extension on your own audio wav file by running the 'inference.py' file as
@@ -33,6 +33,7 @@ This repository also support directory-level inference, where the inference is p
 ```python inference.py --mode dir --path_ckpt <path of checkpoint file>```
 
 ## Note
+- 2023.5.1 This code now supports Distributed Data Parallel (DDP) training!
 - This implementation does not include streaming convolution and uses the conventional causal convolution instead. Although this deviates from the contributions of the original paper, I am focusing on verifying the bandwidth extension performance of this model.
 - The original paper conducted training for 1 million steps, whereas this implementation trained for 350 epochs for personal research convenience. The number of epochs can be adjusted arbitrarily. 
 - Feel free to provide issues!
