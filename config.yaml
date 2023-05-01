@@ -66,6 +66,10 @@ train:
 
   max_epochs: 350
 
+  devices:
+    - 0
+    #- 1
+    # -2 ... if you are using DDP
 
 #-----------------------------------------------
 #Predict

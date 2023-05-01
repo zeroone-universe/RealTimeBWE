@@ -56,7 +56,6 @@ class RTBWETrain(pl.LightningModule):
         
         wav_nb, wav_wb, _ = batch
         
-            
         wav_bwe = self.forward(wav_nb)
 
         #optimize discriminator
@@ -110,9 +109,9 @@ class RTBWETrain(pl.LightningModule):
         val_pesq_wb = pesq(fs = 16000, ref = wav_wb, deg = wav_bwe, mode = "wb")
         val_pesq_nb = pesq(fs = 16000, ref = wav_wb, deg = wav_bwe, mode = "nb")
         
-        self.log_dict({"val_loss/val_loss_d": loss_d, "val_loss/val_loss_g": loss_g}, batch_size = 1)
-        self.log('val_pesq_wb', val_pesq_wb, batch_size = 1)
-        self.log('val_pesq_nb', val_pesq_nb, batch_size = 1)
+        self.log_dict({"val_loss/val_loss_d": loss_d, "val_loss/val_loss_g": loss_g}, batch_size = 1, sync_dist=True)
+        self.log('val_pesq_wb', val_pesq_wb, batch_size = 1, sync_dist=True)
+        self.log('val_pesq_nb', val_pesq_nb, batch_size = 1, sync_dist=True)
 
 
     def test_step(self, batch, batch_idx):

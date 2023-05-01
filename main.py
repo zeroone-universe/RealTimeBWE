@@ -29,7 +29,7 @@ def main(config):
 
     tb_logger.log_hyperparams(config)
 
-    trainer=pl.Trainer(devices=1, accelerator="gpu",
+    trainer=pl.Trainer(devices=config['train']['devices'], accelerator="gpu", strategy='ddp_find_unused_parameters_true',
     callbacks= [checkpoint_callback],
     max_epochs=config['train']['max_epochs'],
     logger=tb_logger,
