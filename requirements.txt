@@ -4,3 +4,4 @@ pytorch_lightning==2.0.0
 PyYAML==6.0
 torch==2.0.0
 torchaudio==2.0.0
+tensorboardX

@@ -4,3 +4,4 @@ __pycache__
 *.ipynb
 logger_*
 output_*
+dockerfile
