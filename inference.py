@@ -24,7 +24,6 @@ def inference(config, args):
         pred_dataset = RTBWEDataset(
             path_dir_nb = config["predict"]["nb_pred_path"],
             path_dir_wb = config["predict"]["nb_pred_path"],
-            seg_len = 2,
             mode = "pred"
         )
         trainer = pl.Trainer(devices=1, accelerator="gpu", logger = False)
