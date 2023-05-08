@@ -34,7 +34,6 @@ class RTBWETrain(pl.LightningModule):
         
         self.discriminator = Discriminator_MelGAN()
 
-        self.resampler = T.Resample(8000, 16000, dtype = torch.float32)
         
         self.automatic_optimization = False
 

@@ -14,6 +14,7 @@ def inference(config, args):
     if args.mode == 'wav':
         wav_nb, sr_nb = ta.load(args.path_in)
         wav_nb = wav_nb.unsqueeze(0)
+        rtbwe_train.generator.eval()
         wav_bwe = rtbwe_train.forward(wav_nb)
         
         filename = get_filename(args.path_in)
