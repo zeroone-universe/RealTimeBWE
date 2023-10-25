@@ -20,8 +20,6 @@ class RTBWEDataset(Dataset):
         self.seg_len = seg_len
         self.mode = mode
 
-        self.upsample = ta.transforms.Resample(8000, 16000)
-
         self.wavs={}
         self.filenames= []
 
@@ -31,10 +29,13 @@ class RTBWEDataset(Dataset):
         if mode == "pred":
             for path_wav_nb in paths_wav_nb:
                 filename=get_filename(path_wav_nb)[0]
-            
+
                 wav_nb, self.sr_nb = ta.load(path_wav_nb)
                 
-                self.wavs[filename]=( None , wav_nb)
+                if self.sr_nb != 8000:
+                    wav_nb = ta.functional.resample(wav_nb, self.sr_nb, 8000)
+                
+                self.wavs[filename]=(None , wav_nb)
                 self.filenames.append(filename)
                 print(f'\r {mode}: {len(self.filenames)} th file loaded', end='')
         
@@ -43,6 +44,11 @@ class RTBWEDataset(Dataset):
                 filename=get_filename(path_wav_wb)[0]
                 wav_nb, self.sr_nb = ta.load(path_wav_nb)
                 wav_wb, self.sr_wb = ta.load(path_wav_wb)
+                
+                if self.sr_nb != 8000:
+                    wav_nb = ta.functional.resample(wav_nb, self.sr_nb, 8000)
+                if self.sr_wb != 16000:
+                    wav_wb = ta.functional.resample(wav_wb, self.sr_wb, 16000)
                 
                 self.wavs[filename]=(wav_wb, wav_nb)
                 self.filenames.append(filename)
@@ -65,7 +71,7 @@ class RTBWEDataset(Dataset):
 
 
         if self.seg_len > 0 and self.mode == "train":
-            duration= int(self.seg_len * self.sr_wb)
+            duration= int(self.seg_len * 16000)
 
             wav_wb= wav_wb.view(1,-1)
             wav_nb = wav_nb.view(1,-1)

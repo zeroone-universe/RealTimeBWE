@@ -24,7 +24,10 @@ class RTBWETrain(pl.LightningModule):
         self.B1 = config['optim']['B1']
         self.B2 = config['optim']['B2']
 
-        self.generator = SEANet(min_dim = 8, causality = True, skip_outmost = True)
+        self.resampler = T.Resample(8000, 16000)
+        
+        self.generator = SEANet(min_dim = 8, causality = True)
+        
         self.output_dir_path = config['train']['output_dir_path']
 
         self.epoch_save_start = config['train']['epoch_save_start']
