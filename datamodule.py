@@ -96,11 +96,11 @@ class RTBWEDataset(Dataset):
             wav_wb= wav_wb.view(1,-1)
             wav_nb = wav_nb.view(1,-1)
             
-            #wav_wb 패딩
+            #wav_nb padding
             nb_padding = 256 - len(wav_nb[-1])%256
             wav_nb = torch.cat([wav_nb, torch.zeros((1, nb_padding))], dim=1)
             
-            #wav_wb 패딩
+            #wav_wb padding
             wb_len = wav_nb.shape[1]*2
             wb_padding = wb_len - len(wav_wb[-1])
             wav_wb = torch.cat([wav_wb, torch.zeros((1, wb_padding))], dim=1)
